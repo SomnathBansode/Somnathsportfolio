@@ -1,3 +1,9 @@
+/* Import Font Awesome Icons */
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+/* Import Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Varela+Round&display=swap");
+
 /* Define Custom Font */
 @font-face {
   font-family: "HelveticaCustom";
@@ -5,12 +11,6 @@
   font-weight: 400;
   font-style: normal;
 }
-
-/* Import Font Awesome Icons */
-@import "@fortawesome/fontawesome-free/css/all.min.css";
-
-/* Import Google Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Varela+Round&display=swap");
 
 /* Tailwind Base Styles */
 @tailwind base;
@@ -22,7 +22,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "HelveticaCustom", sans-serif; /* Use the custom font globally */
+  font-family: "HelveticaCustom", sans-serif;
+  /* Use the custom font globally */
 }
 
 /* Font Utility Classes */

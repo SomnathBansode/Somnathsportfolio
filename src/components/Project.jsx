@@ -3,6 +3,29 @@ import React from "react";
 const Project = () => {
   const projects = [
     {
+      title: "NexLearn - Online Examination Platform",
+      description:
+        "A secure MERN stack online test platform with JWT authentication, real-time monitoring, multilingual support, and automated evaluation. Includes an analytics dashboard and PDF report generation for performance tracking.",
+      technologies:
+        "MERN Stack (MongoDB, Express, React, Node.js), JWT, GridFS, Chart.js",
+      highlights: [
+        "Secure role-based access (Admin/Teacher/Student)",
+        "Multilingual support for diverse user base",
+        "File uploads using MongoDB GridFS",
+        "Interactive analytics dashboard with visual metrics",
+      ],
+      link: "https://nexlearn.netlify.app/",
+      image: "images/online-test.png",
+    },
+    {
+      title: "HealthLink - Medical Booking System",
+      description:
+        "MERN-based healthcare platform with role-based access (patient/doctor/admin) and secure JWT authentication.",
+      technologies: "React, Node.js, MongoDB, Express, JWT",
+      link: "https://healthlinkwebapp.netlify.app",
+      image: "images/healthlinkwebapp.png",
+    },
+    {
       title: "PassGuard - Password manager ",
       description:
         "A secure and user-friendly password manager for storing, managing, and searching passwords. Built with React, it offers seamless functionality and an intuitive design.",
