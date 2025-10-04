@@ -15,7 +15,7 @@ const Project = () => {
         "Interactive analytics dashboard with visual metrics",
       ],
       link: "https://nexlearn.netlify.app/",
-      image: "images/online-test.png",
+      image: "/images/online-test.png",
     },
     {
       title: "HealthLink - Medical Booking System",
@@ -23,7 +23,7 @@ const Project = () => {
         "MERN-based healthcare platform with role-based access (patient/doctor/admin) and secure JWT authentication.",
       technologies: "React, Node.js, MongoDB, Express, JWT",
       link: "https://healthlinkwebapp.netlify.app",
-      image: "images/healthlinkwebapp.png",
+      image: "/images/healthlinkwebapp.png",
     },
     {
       title: "PassGuard - Password manager ",
@@ -31,7 +31,7 @@ const Project = () => {
         "A secure and user-friendly password manager for storing, managing, and searching passwords. Built with React, it offers seamless functionality and an intuitive design.",
       technologies: "HTML, CSS, JavaScript, React.js, Tailwind CSS",
       link: "https://passguardwebapp.netlify.app/",
-      image: "images/passguard.png",
+      image: "/images/passguard.png",
     },
     {
       title: "Gym Project",
@@ -39,7 +39,7 @@ const Project = () => {
         "A responsive gym website with modern design, showcasing services and workout plans.",
       technologies: "HTML, CSS, JavaScript, React.js, Tailwind CSS",
       link: "https://somnathbansodegymproject.netlify.app/",
-      image: "images/gym_project.png",
+      image: "/images/gym_project.png",
     },
     {
       title: "Todo List",
@@ -47,7 +47,7 @@ const Project = () => {
         "A responsive task management app built with React.js and Tailwind CSS, enabling seamless task addition, editing, completion, and deletion.",
       technologies: "HTML, Tailwind CSS, JavaScript, React.js",
       link: "https://somnathbansodetodolist.netlify.app/",
-      image: "images/todo.jpg",
+      image: "/images/todo.jpg",
     },
     {
       title: "Portfolio",
@@ -55,7 +55,7 @@ const Project = () => {
         "A personal portfolio website showcasing projects, skills, and achievements with a responsive and modern design.",
       technologies: "HTML, JavaScript, React.js, Tailwind CSS",
       link: "",
-      image: "images/portfolio.png",
+      image: "/images/portfolio.png",
     },
   ];
 
@@ -71,13 +71,12 @@ const Project = () => {
       </div>
 
       {/* Scrollable Parent Container */}
-      <div className="max-w-7xl mx-auto h-[500px] overflow-auto bg-zinc-900 rounded-lg p-4">
+      <div className="max-w-7xl mx-auto h-[500px] overflow-auto bg-zinc-900 rounded-lg p-4 projects-scroll">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {projects.map((project, index) => (
             <div
               key={index}
-              className="bg-zinc-800 rounded-lg overflow-hidden"
-              style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, 1)" }}
+              className="bg-zinc-800 rounded-lg overflow-hidden shadow-lg shadow-black/50"
             >
               {/* Project Image */}
               <div className="w-full h-auto relative">
@@ -85,6 +84,8 @@ const Project = () => {
                   src={project.image}
                   alt={project.title}
                   className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               {/* Project Details */}
@@ -100,14 +101,20 @@ const Project = () => {
                     Technologies: {project.technologies}
                   </p>
                 )}
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block text-blue-400 font-semibold hover:text-blue-500 transition-all duration-300"
-                >
-                  View Project →
-                </a>
+                {project.link ? (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block text-blue-400 font-semibold hover:text-blue-500 transition-all duration-300"
+                  >
+                    View Project →
+                  </a>
+                ) : (
+                  <span className="inline-block text-gray-400 cursor-not-allowed">
+                    Coming soon
+                  </span>
+                )}
               </div>
             </div>
           ))}
@@ -118,3 +125,4 @@ const Project = () => {
 };
 
 export default Project;
+

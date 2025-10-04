@@ -12,15 +12,12 @@ const Header = ({ userName }) => {
   };
 
   return (
-    <header
-      className="bg-[#27272a] p-2 fixed w-full top-0"
-      style={{ zIndex: "100" }}
-    >
+    <header className="bg-[#27272a] p-2 fixed w-full top-0 z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center p-4">
         {/* Logo */}
         <div className="text-white text-2xl font-bold">
           <a
-            href="/"
+            href="#home"
             className="hover:text-[#a78bfa] italic font-black -tracking-normal " // Apply hover effect
           >
             {userName}
@@ -32,6 +29,9 @@ const Header = ({ userName }) => {
           <button
             onClick={toggleMenu}
             className="text-white focus:outline-none"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label="Toggle navigation"
           >
             {/* Toggle Hamburger / Close Icon */}
             {!isMenuOpen ? (
@@ -69,7 +69,7 @@ const Header = ({ userName }) => {
         </div>
 
         {/* Links (Desktop) */}
-        <div className="hidden lg:flex space-x-4">
+        <nav className="hidden lg:flex space-x-4" aria-label="Primary">
           <a
             href="#home"
             className="text-white font-bold hover:text-[#a78bfa] transition-colors duration-300 px-3 py-1 rounded"
@@ -98,12 +98,12 @@ const Header = ({ userName }) => {
           >
             Contact
           </a>
-        </div>
+        </nav>
       </div>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-[#27272a]">
+        <nav id="mobile-menu" className="lg:hidden bg-[#27272a]" aria-label="Primary">
           <div className="flex flex-col items-start space-y-4 py-2 h-screen">
             <a
               href="#home"
@@ -134,7 +134,7 @@ const Header = ({ userName }) => {
               Contact
             </a>
           </div>
-        </div>
+        </nav>
       )}
     </header>
   );

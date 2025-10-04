@@ -1,7 +1,7 @@
 import React from "react";
 
-const Home = ({ HederUser }) => {
-  const userImage = "images/1.png"; // Path relative to the public folder
+const Home = ({ headerUser }) => {
+  const userImage = "/images/1.png"; // Path relative to the public folder
 
   return (
     <section className="h-screen w-full bg-transparent flex flex-col md:flex-row items-center justify-center text-white px-4 sm:px-6">
@@ -14,7 +14,7 @@ const Home = ({ HederUser }) => {
           I am
         </h2>
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-violet-400">
-          {HederUser}.
+          {headerUser}.
         </h2>
         <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold">
           M.E.R.N Stack Developer.
@@ -26,7 +26,7 @@ const Home = ({ HederUser }) => {
         <div className="w-28 h-28 sm:w-36 sm:h-36 md:w-48 md:h-48 lg:w-64 lg:h-64 rounded-full overflow-hidden border-4 border-violet-400 shadow-lg">
           <img
             src={userImage}
-            alt={HederUser}
+            alt={headerUser}
             className="h-full w-full object-cover"
           />
         </div>
