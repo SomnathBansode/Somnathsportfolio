@@ -1,143 +1,103 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+import {
+  FaBars,
+  FaTimes,
+  FaHome,
+  FaUser,
+  FaFolderOpen,
+  FaEnvelope,
+} from "react-icons/fa";
 
-const Header = ({ userName }) => {
+const navLinks = [
+  { href: "#home", label: "Home", icon: FaHome },
+  { href: "#about", label: "About", icon: FaUser },
+  { href: "#projects", label: "Projects", icon: FaFolderOpen },
+  { href: "#contact", label: "Contact", icon: FaEnvelope },
+];
+
+const Header = ({ userName = "Portfolio" }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const closeMenu = () => {
-    setIsMenuOpen(false); // Close the menu when a link is clicked
-  };
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="bg-[#27272a] p-2 fixed w-full top-0 z-50">
+    <header className="bg-[#27272a] p-2 fixed w-full top-0 z-50 shadow-md">
       <div className="max-w-7xl mx-auto flex justify-between items-center p-4">
-        {/* Logo */}
         <div className="text-white text-2xl font-bold">
           <a
             href="#home"
-            className="hover:text-[#a78bfa] italic font-black -tracking-normal " // Apply hover effect
+            className="hover:text-[#a78bfa] italic font-black tracking-tight"
           >
             {userName}
           </a>
         </div>
 
-        {/* Hamburger Button (Mobile) */}
         <div className="lg:hidden">
           <button
             onClick={toggleMenu}
-            className="text-white focus:outline-none"
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
             aria-label="Toggle navigation"
+            className="text-white focus:outline-none"
           >
-            {/* Toggle Hamburger / Close Icon */}
-            {!isMenuOpen ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="h-5 w-5 text-white"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                ></path>
-              </svg>
+            {isMenuOpen ? (
+              <FaTimes className="w-5 h-5" />
             ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="h-5 w-5 text-white"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                ></path>
-              </svg>
+              <FaBars className="w-5 h-5" />
             )}
           </button>
         </div>
 
-        {/* Links (Desktop) */}
-        <nav className="hidden lg:flex space-x-4" aria-label="Primary">
-          <a
-            href="#home"
-            className="text-white font-bold hover:text-[#a78bfa] transition-colors duration-300 px-3 py-1 rounded"
-            onClick={closeMenu}
-          >
-            Home
-          </a>
-          <a
-            href="#about"
-            className="text-white font-bold hover:text-[#a78bfa] transition-colors duration-300 px-3 py-1 rounded"
-            onClick={closeMenu}
-          >
-            About
-          </a>
-          <a
-            href="#projects"
-            className="text-white font-bold hover:text-[#a78bfa] transition-colors duration-300 px-3 py-1 rounded"
-            onClick={closeMenu}
-          >
-            Projects
-          </a>
-          <a
-            href="#contact"
-            className="text-white font-bold hover:text-[#a78bfa] transition-colors duration-300 px-3 py-1 rounded"
-            onClick={closeMenu}
-          >
-            Contact
-          </a>
+        <nav
+          className="hidden lg:flex space-x-4"
+          aria-label="Primary Navigation"
+          role="navigation"
+        >
+          {navLinks.map(({ href, label, icon: Icon }) => (
+            <a
+              key={href}
+              href={href}
+              onClick={closeMenu}
+              className="text-white font-bold hover:text-[#a78bfa] transition-colors duration-300 px-3 py-1 rounded flex items-center"
+            >
+              <Icon className="w-4 h-4 mr-2" aria-hidden="true" />
+              <span>{label}</span>
+            </a>
+          ))}
         </nav>
       </div>
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <nav id="mobile-menu" className="lg:hidden bg-[#27272a]" aria-label="Primary">
-          <div className="flex flex-col items-start space-y-4 py-2 h-screen">
+      <nav
+        id="mobile-menu"
+        className={`lg:hidden bg-[#27272a] transition-all duration-300 ease-in-out transform ${
+          isMenuOpen
+            ? "translate-x-0 opacity-100"
+            : "-translate-x-full opacity-0"
+        } absolute top-16 left-0 w-full`}
+        aria-label="Mobile Navigation"
+        role="navigation"
+      >
+        <div className="flex flex-col items-start space-y-4 py-4 px-4">
+          {navLinks.map(({ href, label, icon: Icon }) => (
             <a
-              href="#home"
-              className="text-white font-bold hover:text-[#a78bfa] transition-colors duration-300 px-3 py-1 rounded"
+              key={href}
+              href={href}
               onClick={closeMenu}
+              className="text-white font-bold hover:text-[#a78bfa] transition-colors duration-300 px-3 py-2 rounded flex items-center w-full"
             >
-              Home
+              <Icon className="w-5 h-5 mr-3" aria-hidden="true" />
+              <span className="text-lg">{label}</span>
             </a>
-            <a
-              href="#about"
-              className="text-white font-bold hover:text-[#a78bfa] transition-colors duration-300 px-3 py-1 rounded"
-              onClick={closeMenu}
-            >
-              About
-            </a>
-            <a
-              href="#projects"
-              className="text-white font-bold hover:text-[#a78bfa] transition-colors duration-300 px-3 py-1 rounded"
-              onClick={closeMenu}
-            >
-              Projects
-            </a>
-            <a
-              href="#contact"
-              className="text-white font-bold hover:text-[#a78bfa] transition-colors duration-300 px-3 py-1 rounded"
-              onClick={closeMenu}
-            >
-              Contact
-            </a>
-          </div>
-        </nav>
-      )}
+          ))}
+        </div>
+      </nav>
     </header>
   );
+};
+
+Header.propTypes = {
+  userName: PropTypes.string,
 };
 
 export default Header;

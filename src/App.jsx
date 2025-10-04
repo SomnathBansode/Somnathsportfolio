@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import About from "./components/About";
@@ -10,34 +11,70 @@ const App = () => {
   const userName = "Somnath's Portfolio";
   const headerUser = "Somnath Bansode";
 
-  return (
-    <React.Fragment>
-      <div className="h-auto w-full bg-zinc-900">
-        {/* Render Header */}
-        <Header userName={userName} />
+  // Framer Motion variants for sections
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+  };
 
-        {/* Content sections */}
-        <main>
-          <section id="home" className="scroll-mt-24">
-            <Home headerUser={headerUser} />
-            <hr />
-          </section>
-          <section id="about" className="scroll-mt-24">
-            <About />
-            <hr />
-          </section>
-          <section id="projects" className="scroll-mt-24">
-            <Project />
-            <hr />
-          </section>
-          <section id="contact" className="scroll-mt-24">
-            <Contact />
-            <hr />
-          </section>
-        </main>
-        <Footer />
-      </div>
-    </React.Fragment>
+  return (
+    <div className="h-auto w-full bg-zinc-900 scroll-smooth">
+      {/* Header */}
+      <Header userName={userName} />
+
+      {/* Main Content */}
+      <main id="main-content">
+        <motion.section
+          id="home"
+          className="scroll-mt-24"
+          initial="hidden"
+          animate="visible"
+          variants={sectionVariants}
+        >
+          <Home headerUser={headerUser} />
+          <hr />
+        </motion.section>
+
+        <motion.section
+          id="about"
+          className="scroll-mt-24"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={sectionVariants}
+        >
+          <About />
+          <hr />
+        </motion.section>
+
+        <motion.section
+          id="projects"
+          className="scroll-mt-24"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={sectionVariants}
+        >
+          <Project />
+          <hr />
+        </motion.section>
+
+        <motion.section
+          id="contact"
+          className="scroll-mt-24"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={sectionVariants}
+        >
+          <Contact />
+          <hr />
+        </motion.section>
+      </main>
+
+      {/* Footer */}
+      <Footer />
+    </div>
   );
 };
 

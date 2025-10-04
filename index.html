@@ -2,6 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Preconnect to Google Fonts for faster font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Favicon and Icons -->
     <link
       rel="apple-touch-icon"
@@ -25,8 +28,13 @@
     <title>Somnath Bansode portfolio</title>
   </head>
   <body>
+    <!-- Accessibility: Skip link for keyboard users -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only p-2 bg-violet-500 text-white fixed z-50"
+      >Skip to content</a
+    >
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
-

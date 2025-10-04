@@ -1,6 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Project = () => {
+  // State to track loading and error states for images
+  const [imageStates, setImageStates] = useState({});
+
+  const handleImageLoad = (index) => {
+    setImageStates((prev) => ({
+      ...prev,
+      [index]: { loaded: true, error: false },
+    }));
+  };
+
+  const handleImageError = (index) => {
+    setImageStates((prev) => ({
+      ...prev,
+      [index]: { loaded: false, error: true },
+    }));
+  };
   const projects = [
     {
       title: "NexLearn - Online Examination Platform",
@@ -66,7 +82,7 @@ const Project = () => {
           My Projects
         </h1>
         <p className="text-base sm:text-lg font-semibold text-gray-200">
-          Here are a few projects I've worked on.
+          Here are a few projects I&apos;ve worked on.
         </p>
       </div>
 
@@ -79,14 +95,37 @@ const Project = () => {
               className="bg-zinc-800 rounded-lg overflow-hidden shadow-lg shadow-black/50"
             >
               {/* Project Image */}
-              <div className="w-full h-auto relative">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                />
+              <div
+                className="w-full h-auto relative"
+                style={{ aspectRatio: "16/9" }}
+              >
+                <div
+                  className={`w-full h-full ${
+                    !imageStates[index]?.loaded
+                      ? "bg-zinc-700 animate-pulse"
+                      : ""
+                  }`}
+                >
+                  {!imageStates[index]?.error ? (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className={`w-full h-full object-cover transition-opacity duration-300 ${
+                        imageStates[index]?.loaded ? "opacity-100" : "opacity-0"
+                      }`}
+                      loading="lazy"
+                      decoding="async"
+                      width={600}
+                      height={338}
+                      onLoad={() => handleImageLoad(index)}
+                      onError={() => handleImageError(index)}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-zinc-700 text-gray-400">
+                      <span>Failed to load image</span>
+                    </div>
+                  )}
+                </div>
               </div>
               {/* Project Details */}
               <div className="p-4 sm:p-5 md:p-6">
@@ -125,4 +164,3 @@ const Project = () => {
 };
 
 export default Project;
-
