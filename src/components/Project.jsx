@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { HiSparkles } from "react-icons/hi";
 
@@ -57,6 +56,101 @@ const projects = [
   },
 ];
 
+// Small card component that handles visibility (no blinking) and image placeholder
+const ProjectCard = ({ project }) => {
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const node = ref.current;
+    if (typeof window !== "undefined" && window.IntersectionObserver) {
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setIsVisible(true);
+              obs.unobserve(node);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      obs.observe(node);
+      return () => obs.disconnect();
+    } else {
+      // Fallback: immediately show
+      setIsVisible(true);
+    }
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`relative bg-zinc-800/50 border border-zinc-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all transform ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+      } duration-500`}
+    >
+      {/* Featured Badge */}
+      {project.featured && (
+        <div className="absolute top-4 right-4 px-3 py-1 bg-[#8b5cf6] rounded-full text-xs font-bold text-white">
+          ⭐ Featured
+        </div>
+      )}
+
+      {/* Image with placeholder */}
+      <div className="w-full overflow-hidden rounded-t-xl relative bg-zinc-700">
+        <div className="aspect-w-16 aspect-h-9">
+          {/* placeholder shown until image loads */}
+          {!imgLoaded && (
+            <div className="absolute inset-0 bg-zinc-700 animate-pulse"></div>
+          )}
+          <img
+            src={project.image}
+            alt={project.title}
+            loading="lazy"
+            onLoad={() => setImgLoaded(true)}
+            className="w-full h-full object-cover object-center transition-opacity duration-500"
+            style={{ opacity: imgLoaded ? 1 : 0 }}
+          />
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-6 space-y-2">
+        <span className="px-3 py-1 bg-[#8b5cf6]/20 text-[#8b5cf6] text-xs font-medium rounded-full border border-[#8b5cf6]/30">
+          {project.category}
+        </span>
+        <h3 className="text-xl font-bold text-white">{project.title}</h3>
+        <p className="text-sm text-gray-400">{project.description}</p>
+        <p className="text-xs text-gray-500">
+          <span className="text-[#8b5cf6] font-semibold">Tech:</span>{" "}
+          {project.technologies}
+        </p>
+
+        {/* View Live Button */}
+        <div>
+          {project.link ? (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#8b5cf6] rounded-full text-sm font-semibold hover:bg-[#7c3aed] transition-all"
+            >
+              View Live <FaExternalLinkAlt className="text-xs" />
+            </a>
+          ) : (
+            <span className="inline-flex items-center gap-2 px-5 py-2.5 bg-zinc-800 rounded-full text-gray-500 text-sm font-medium cursor-not-allowed">
+              Coming Soon
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Project = () => {
   const [filter, setFilter] = useState("All");
   const categories = ["All", "Full Stack", "Frontend"];
@@ -70,17 +164,12 @@ const Project = () => {
     >
       {/* Header */}
       <div className="text-center mb-12">
-        <motion.div
-          className="inline-flex items-center gap-2 px-4 py-2 bg-[#8b5cf6]/10 rounded-full mb-4"
-          initial={{ scale: 0 }}
-          whileInView={{ scale: 1 }}
-          viewport={{ once: true }}
-        >
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#8b5cf6]/10 rounded-full mb-4">
           <HiSparkles className="text-[#8b5cf6]" />
           <span className="text-sm text-[#8b5cf6]/80 font-medium">
             Featured Work
           </span>
-        </motion.div>
+        </div>
 
         <h2 className="text-4xl font-bold mb-4 text-[#8b5cf6]">My Projects</h2>
 
@@ -91,7 +180,7 @@ const Project = () => {
       </div>
 
       {/* Filter Buttons */}
-      <div className="flex justify-center gap-4 mb-10">
+      <div className="flex justify-center gap-4 mb-10 flex-wrap">
         {categories.map((cat) => (
           <button
             key={cat}
@@ -109,66 +198,27 @@ const Project = () => {
 
       {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {filteredProjects.map((project, index) => (
-          <motion.div
-            key={project.title}
-            className="relative bg-zinc-800/50 border border-zinc-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6, delay: index * 0.15 }}
-          >
-            {/* Featured Badge */}
-            {project.featured && (
-              <div className="absolute top-4 right-4 px-3 py-1 bg-[#8b5cf6] rounded-full text-xs font-bold text-white">
-                ⭐ Featured
-              </div>
-            )}
-
-            {/* Image */}
-            <div className="h-56 w-full overflow-hidden bg-zinc-700">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            {/* Content */}
-            <div className="p-6 space-y-2">
-              <span className="px-3 py-1 bg-[#8b5cf6]/20 text-[#8b5cf6] text-xs font-medium rounded-full border border-[#8b5cf6]/30">
-                {project.category}
-              </span>
-              <h3 className="text-xl font-bold text-white">{project.title}</h3>
-              <p className="text-sm text-gray-400">{project.description}</p>
-              <p className="text-xs text-gray-500">
-                <span className="text-[#8b5cf6] font-semibold">Tech:</span>{" "}
-                {project.technologies}
-              </p>
-
-              {/* View Live Button */}
-              <div>
-                {project.link ? (
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#8b5cf6] rounded-full text-sm font-semibold hover:bg-[#7c3aed] transition-all"
-                  >
-                    View Live <FaExternalLinkAlt className="text-xs" />
-                  </a>
-                ) : (
-                  <span className="inline-flex items-center gap-2 px-5 py-2.5 bg-zinc-800 rounded-full text-gray-500 text-sm font-medium cursor-not-allowed">
-                    Coming Soon
-                  </span>
-                )}
-              </div>
-            </div>
-          </motion.div>
+        {filteredProjects.map((project) => (
+          <ProjectCard key={project.title} project={project} />
         ))}
       </div>
     </section>
   );
+};
+
+// PropTypes for ProjectCard
+import PropTypes from "prop-types";
+
+ProjectCard.propTypes = {
+  project: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    technologies: PropTypes.string,
+    link: PropTypes.string,
+    image: PropTypes.string,
+    category: PropTypes.string,
+    featured: PropTypes.bool,
+  }).isRequired,
 };
 
 export default Project;

@@ -16,7 +16,7 @@ const navLinks = [
   { href: "#contact", label: "Contact", icon: FaEnvelope },
 ];
 
-const Header = ({ userName = "Portfolio", setHeaderHeight }) => {
+const Header = ({ userName = "Portfolio", setHeaderHeight = () => {} }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [scrollProgress, setScrollProgress] = useState(0);
