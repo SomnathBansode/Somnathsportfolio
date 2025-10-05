@@ -1,163 +1,171 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { FaExternalLinkAlt } from "react-icons/fa";
+import { HiSparkles } from "react-icons/hi";
+
+const projects = [
+  {
+    title: "NexLearn - Online Examination Platform",
+    description:
+      "A secure MERN stack online test platform with JWT authentication, real-time monitoring, multilingual support, and automated evaluation. Includes analytics dashboard and PDF reports.",
+    technologies:
+      "MERN Stack (MongoDB, Express, React, Node.js), JWT, GridFS, Chart.js",
+    link: "https://nexlearn.netlify.app/",
+    image: "/images/online-test.png",
+    category: "Full Stack",
+    featured: true,
+  },
+  {
+    title: "HealthLink - Medical Booking System",
+    description:
+      "MERN-based healthcare platform with role-based access (patient/doctor/admin) and secure JWT authentication.",
+    technologies: "React, Node.js, MongoDB, Express, JWT",
+    link: "https://healthlinkwebapp.netlify.app",
+    image: "/images/healthlinkwebapp.png",
+    category: "Full Stack",
+    featured: true,
+  },
+  {
+    title: "PassGuard - Password Manager",
+    description:
+      "A secure and user-friendly password manager for storing and managing passwords. Built with React and Tailwind CSS.",
+    technologies: "HTML, CSS, JavaScript, React.js, Tailwind CSS",
+    link: "https://passguardwebapp.netlify.app/",
+    category: "Frontend",
+    featured: false,
+    image: "/images/passguard.png",
+  },
+  {
+    title: "Gym Project",
+    description:
+      "A responsive gym website with modern design, showcasing services and workout plans.",
+    technologies: "HTML, CSS, JavaScript, React.js, Tailwind CSS",
+    link: "https://somnathbansodegymproject.netlify.app/",
+    category: "Frontend",
+    featured: false,
+    image: "/images/gym_project.png",
+  },
+  {
+    title: "Todo List",
+    description:
+      "A task management app built with React.js and Tailwind CSS, enabling seamless task addition, editing, and deletion.",
+    technologies: "HTML, Tailwind CSS, JavaScript, React.js",
+    link: "https://somnathbansodetodolist.netlify.app/",
+    category: "Frontend",
+    featured: false,
+    image: "/images/todo.jpg",
+  },
+];
 
 const Project = () => {
-  // State to track loading and error states for images
-  const [imageStates, setImageStates] = useState({});
-
-  const handleImageLoad = (index) => {
-    setImageStates((prev) => ({
-      ...prev,
-      [index]: { loaded: true, error: false },
-    }));
-  };
-
-  const handleImageError = (index) => {
-    setImageStates((prev) => ({
-      ...prev,
-      [index]: { loaded: false, error: true },
-    }));
-  };
-  const projects = [
-    {
-      title: "NexLearn - Online Examination Platform",
-      description:
-        "A secure MERN stack online test platform with JWT authentication, real-time monitoring, multilingual support, and automated evaluation. Includes an analytics dashboard and PDF report generation for performance tracking.",
-      technologies:
-        "MERN Stack (MongoDB, Express, React, Node.js), JWT, GridFS, Chart.js",
-      highlights: [
-        "Secure role-based access (Admin/Teacher/Student)",
-        "Multilingual support for diverse user base",
-        "File uploads using MongoDB GridFS",
-        "Interactive analytics dashboard with visual metrics",
-      ],
-      link: "https://nexlearn.netlify.app/",
-      image: "/images/online-test.png",
-    },
-    {
-      title: "HealthLink - Medical Booking System",
-      description:
-        "MERN-based healthcare platform with role-based access (patient/doctor/admin) and secure JWT authentication.",
-      technologies: "React, Node.js, MongoDB, Express, JWT",
-      link: "https://healthlinkwebapp.netlify.app",
-      image: "/images/healthlinkwebapp.png",
-    },
-    {
-      title: "PassGuard - Password manager ",
-      description:
-        "A secure and user-friendly password manager for storing, managing, and searching passwords. Built with React, it offers seamless functionality and an intuitive design.",
-      technologies: "HTML, CSS, JavaScript, React.js, Tailwind CSS",
-      link: "https://passguardwebapp.netlify.app/",
-      image: "/images/passguard.png",
-    },
-    {
-      title: "Gym Project",
-      description:
-        "A responsive gym website with modern design, showcasing services and workout plans.",
-      technologies: "HTML, CSS, JavaScript, React.js, Tailwind CSS",
-      link: "https://somnathbansodegymproject.netlify.app/",
-      image: "/images/gym_project.png",
-    },
-    {
-      title: "Todo List",
-      description:
-        "A responsive task management app built with React.js and Tailwind CSS, enabling seamless task addition, editing, completion, and deletion.",
-      technologies: "HTML, Tailwind CSS, JavaScript, React.js",
-      link: "https://somnathbansodetodolist.netlify.app/",
-      image: "/images/todo.jpg",
-    },
-    {
-      title: "Portfolio",
-      description:
-        "A personal portfolio website showcasing projects, skills, and achievements with a responsive and modern design.",
-      technologies: "HTML, JavaScript, React.js, Tailwind CSS",
-      link: "",
-      image: "/images/portfolio.png",
-    },
-  ];
+  const [filter, setFilter] = useState("All");
+  const categories = ["All", "Full Stack", "Frontend"];
+  const filteredProjects =
+    filter === "All" ? projects : projects.filter((p) => p.category === filter);
 
   return (
-    <section className="min-h-screen w-full bg-transparent px-4 sm:px-6 md:px-8 lg:px-10 py-8 text-white">
-      <div className="text-center mb-8 sm:mb-10 md:mb-12 py-10">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#a78bfa] tracking-wide mb-3 sm:mb-4">
-          My Projects
-        </h1>
-        <p className="text-base sm:text-lg font-semibold text-gray-200">
-          Here are a few projects I&apos;ve worked on.
+    <section
+      id="projects"
+      className="min-h-screen px-6 py-20 bg-zinc-950 text-white"
+    >
+      {/* Header */}
+      <div className="text-center mb-12">
+        <motion.div
+          className="inline-flex items-center gap-2 px-4 py-2 bg-[#8b5cf6]/10 rounded-full mb-4"
+          initial={{ scale: 0 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true }}
+        >
+          <HiSparkles className="text-[#8b5cf6]" />
+          <span className="text-sm text-[#8b5cf6]/80 font-medium">
+            Featured Work
+          </span>
+        </motion.div>
+
+        <h2 className="text-4xl font-bold mb-4 text-[#8b5cf6]">My Projects</h2>
+
+        <p className="text-gray-400 max-w-3xl mx-auto">
+          Explore my collection of full-stack applications and creative frontend
+          projects built with modern technologies.
         </p>
       </div>
 
-      {/* Scrollable Parent Container */}
-      <div className="max-w-7xl mx-auto h-[500px] overflow-auto bg-zinc-900 rounded-lg p-4 projects-scroll">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="bg-zinc-800 rounded-lg overflow-hidden shadow-lg shadow-black/50"
-            >
-              {/* Project Image */}
-              <div
-                className="w-full h-auto relative"
-                style={{ aspectRatio: "16/9" }}
-              >
-                <div
-                  className={`w-full h-full ${
-                    !imageStates[index]?.loaded
-                      ? "bg-zinc-700 animate-pulse"
-                      : ""
-                  }`}
-                >
-                  {!imageStates[index]?.error ? (
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className={`w-full h-full object-cover transition-opacity duration-300 ${
-                        imageStates[index]?.loaded ? "opacity-100" : "opacity-0"
-                      }`}
-                      loading="lazy"
-                      decoding="async"
-                      width={600}
-                      height={338}
-                      onLoad={() => handleImageLoad(index)}
-                      onError={() => handleImageError(index)}
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-zinc-700 text-gray-400">
-                      <span>Failed to load image</span>
-                    </div>
-                  )}
-                </div>
+      {/* Filter Buttons */}
+      <div className="flex justify-center gap-4 mb-10">
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setFilter(cat)}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              filter === cat
+                ? "bg-[#8b5cf6] text-white"
+                : "bg-zinc-800 text-gray-400 hover:bg-zinc-700"
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* Projects Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {filteredProjects.map((project, index) => (
+          <motion.div
+            key={project.title}
+            className="relative bg-zinc-800/50 border border-zinc-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: index * 0.15 }}
+          >
+            {/* Featured Badge */}
+            {project.featured && (
+              <div className="absolute top-4 right-4 px-3 py-1 bg-[#8b5cf6] rounded-full text-xs font-bold text-white">
+                ⭐ Featured
               </div>
-              {/* Project Details */}
-              <div className="p-4 sm:p-5 md:p-6">
-                <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">
-                  {project.title}
-                </h2>
-                <p className="text-sm sm:text-base text-gray-200 mb-3 sm:mb-4">
-                  {project.description}
-                </p>
-                {project.technologies && (
-                  <p className="text-xs sm:text-sm text-gray-400 mb-3 sm:mb-4">
-                    Technologies: {project.technologies}
-                  </p>
-                )}
+            )}
+
+            {/* Image */}
+            <div className="h-56 w-full overflow-hidden bg-zinc-700">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Content */}
+            <div className="p-6 space-y-2">
+              <span className="px-3 py-1 bg-[#8b5cf6]/20 text-[#8b5cf6] text-xs font-medium rounded-full border border-[#8b5cf6]/30">
+                {project.category}
+              </span>
+              <h3 className="text-xl font-bold text-white">{project.title}</h3>
+              <p className="text-sm text-gray-400">{project.description}</p>
+              <p className="text-xs text-gray-500">
+                <span className="text-[#8b5cf6] font-semibold">Tech:</span>{" "}
+                {project.technologies}
+              </p>
+
+              {/* View Live Button */}
+              <div>
                 {project.link ? (
                   <a
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block text-blue-400 font-semibold hover:text-blue-500 transition-all duration-300"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#8b5cf6] rounded-full text-sm font-semibold hover:bg-[#7c3aed] transition-all"
                   >
-                    View Project →
+                    View Live <FaExternalLinkAlt className="text-xs" />
                   </a>
                 ) : (
-                  <span className="inline-block text-gray-400 cursor-not-allowed">
-                    Coming soon
+                  <span className="inline-flex items-center gap-2 px-5 py-2.5 bg-zinc-800 rounded-full text-gray-500 text-sm font-medium cursor-not-allowed">
+                    Coming Soon
                   </span>
                 )}
               </div>
             </div>
-          ))}
-        </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );

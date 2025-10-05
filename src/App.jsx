@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Header from "./components/Header";
 import Home from "./components/Home";
@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 const App = () => {
   const userName = "Somnath's Portfolio";
   const headerUser = "Somnath Bansode";
+  const [headerHeight, setHeaderHeight] = useState(0);
 
   // Framer Motion variants for sections
   const sectionVariants = {
@@ -18,57 +19,59 @@ const App = () => {
   };
 
   return (
-    <div className="h-auto w-full bg-zinc-900 scroll-smooth">
+    <div className="flex flex-col min-h-screen bg-[#09090b] text-white scroll-smooth">
       {/* Header */}
-      <Header userName={userName} />
+      <Header userName={userName} setHeaderHeight={setHeaderHeight} />
 
       {/* Main Content */}
-      <main id="main-content">
+      <main
+        className="flex-1 w-full"
+        style={{ paddingTop: `${headerHeight}px` }}
+      >
         <motion.section
           id="home"
-          className="scroll-mt-24"
+          style={{ scrollMarginTop: `${headerHeight}px` }}
           initial="hidden"
           animate="visible"
           variants={sectionVariants}
         >
           <Home headerUser={headerUser} />
-          <hr />
+          <hr className="border-gray-800" />
         </motion.section>
 
         <motion.section
           id="about"
-          className="scroll-mt-24"
+          style={{ scrollMarginTop: `${headerHeight}px` }}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={sectionVariants}
         >
           <About />
-          <hr />
+          <hr className="border-gray-800" />
         </motion.section>
 
         <motion.section
           id="projects"
-          className="scroll-mt-24"
+          style={{ scrollMarginTop: `${headerHeight}px` }}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={sectionVariants}
         >
           <Project />
-          <hr />
+          <hr className="border-gray-800" />
         </motion.section>
 
         <motion.section
           id="contact"
-          className="scroll-mt-24"
+          style={{ scrollMarginTop: `${headerHeight}px` }}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={sectionVariants}
         >
           <Contact />
-          <hr />
         </motion.section>
       </main>
 
