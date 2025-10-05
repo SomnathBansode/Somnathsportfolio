@@ -57,7 +57,7 @@ const About = () => {
           I’m a{" "}
           <span className="text-violet-400 font-semibold">
             MERN Stack Developer
-          </span>
+          </span>{" "}
           passionate about building modern, responsive, and impactful web
           applications. I specialize in React.js, Node.js, Express, and MongoDB,
           turning ideas into real digital products.
@@ -74,9 +74,9 @@ const About = () => {
         </div>
       </motion.div>
 
-      {/* Info Grid */}
+      {/* Info Cards */}
       <motion.div
-        className="grid md:grid-cols-3 gap-8 max-w-6xl w-full z-10"
+        className="flex flex-col md:flex-row flex-wrap justify-center items-stretch gap-8 w-full max-w-6xl z-10"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -87,7 +87,7 @@ const About = () => {
       >
         {/* Education */}
         <motion.div
-          className="bg-zinc-800/40 border border-zinc-700 rounded-xl p-6 hover:scale-105 transition-transform shadow-lg shadow-violet-500/20"
+          className="flex-1 min-w-[280px] bg-zinc-800/40 border border-zinc-700 rounded-xl p-6 hover:scale-105 transition-transform shadow-lg shadow-violet-500/20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -104,7 +104,7 @@ const About = () => {
 
         {/* Experience */}
         <motion.div
-          className="bg-zinc-800/40 border border-zinc-700 rounded-xl p-6 hover:scale-105 transition-transform shadow-lg shadow-green-500/20"
+          className="flex-1 min-w-[280px] bg-zinc-800/40 border border-zinc-700 rounded-xl p-6 hover:scale-105 transition-transform shadow-lg shadow-green-500/20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -127,7 +127,7 @@ const About = () => {
 
         {/* Achievements */}
         <motion.div
-          className="bg-gradient-to-br from-yellow-600/20 via-yellow-500/10 to-yellow-400/10 border border-yellow-400/40 rounded-xl p-6 hover:scale-105 transition-transform shadow-lg shadow-yellow-400/30"
+          className="flex-1 min-w-[280px] bg-gradient-to-br from-yellow-600/20 via-yellow-500/10 to-yellow-400/10 border border-yellow-400/40 rounded-xl p-6 hover:scale-105 transition-transform shadow-lg shadow-yellow-400/30"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -139,11 +139,11 @@ const About = () => {
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="flex flex-wrap gap-4">
             {achievements.map((achieve, index) => (
               <motion.div
                 key={index}
-                className="flex items-center gap-3 bg-yellow-500/10 border border-yellow-400/30 rounded-full px-4 py-2 hover:bg-yellow-500/20 transition-colors cursor-pointer"
+                className="flex items-center gap-3 bg-yellow-500/10 border border-yellow-400/30 rounded-full px-4 py-2 hover:bg-yellow-500/20 transition-colors cursor-pointer flex-1 min-w-[200px]"
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 whileHover={{ scale: 1.05 }}
