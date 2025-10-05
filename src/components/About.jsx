@@ -43,7 +43,7 @@ const About = () => {
         <p className="text-gray-300 leading-relaxed text-sm sm:text-base md:text-lg">
           I’m a{" "}
           <span className="text-violet-400 font-semibold">
-            MERN Stack Developer
+            MERN Stack Developer &nbsp;
           </span>
           passionate about building modern, responsive, and impactful web
           applications. With experience in React.js, Node.js, Express, and
