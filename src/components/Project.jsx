@@ -25,6 +25,26 @@ const projects = [
     featured: true,
   },
   {
+    title: "E-Signature Web App",
+    description:
+      "Full-stack application where users can create, save, and update email signatures. Admin can manage users and designs.",
+    technologies: "React, Node.js, Express, PostgreSQL",
+    link: "https://esignaturewebapp.netlify.app/",
+    image: "/images/esignature.png",
+    category: "Full Stack",
+    featured: true,
+  },
+  {
+    title: "JMCoder Demo Website",
+    description:
+      "A demo website built for an education-based company to showcase services and offerings.",
+    technologies: "HTML, CSS, JavaScript, React.js",
+    link: "https://jmcoder.netlify.app/",
+    image: "/images/jmcoder.png",
+    category: "Frontend",
+    featured: false,
+  },
+  {
     title: "PassGuard - Password Manager",
     description:
       "A secure and user-friendly password manager for storing and managing passwords. Built with React and Tailwind CSS.",
